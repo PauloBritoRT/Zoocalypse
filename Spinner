@@ -1,0 +1,371 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Spinner : MonoBehaviour
+{
+    float randVal;
+    public float timeInterval;
+    private bool isCoroutine;
+    public float counter;
+    public int section = 8;
+    float totalAngle;
+    private bool isBig = false;
+    public float touchCounter = 0;
+    private float nextActionTime = 0.0f;
+    public float period = 1;
+
+    public GameObject ProjectilePrefab;
+    public GameObject ProjectilePrefabB;
+    public GameObject ProjectilePrefabC;
+    public GameObject ProjectilePrefabD;
+    public GameObject ProjectilePrefabE;
+    public GameObject ProjectilePrefabF;
+    public GameObject ProjectilePrefabG;
+    public GameObject ProjectilePrefabH;
+    public Transform LaunchOffset;
+    public float bulletSpeed  = 4;
+    public Vector3 touchPos, dir;
+    private Rigidbody2D rigi;
+    public string skinTag;
+
+    public bool isSoundOn;
+    
+    public AudioSource audioSource;
+    public AudioSource projectileAudio;
+
+
+
+
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        isCoroutine = true;
+        totalAngle = 360 / section;
+
+        isSoundOn = false;
+       
+    }
+
+    // Update is called once per frame
+    void Update()
+
+    {
+
+        
+        skinTag = GameObject.Find("CanvasMenu").GetComponent<PauseMenuScript>().skinTag;
+
+        if (touchCounter >= 10 && counter <= 30 && isCoroutine == false && !PauseMenuScript.GameIsPaused)
+        {
+            counter += Time.deltaTime;
+
+            if (Time.time > nextActionTime)
+            {
+                nextActionTime = Time.time + period;
+                GameObject.Find("laser").transform.localScale = GameObject.Find("laser").transform.localScale - new Vector3(0f, 0.03333333f, 0f);
+
+            }
+            if (isSoundOn == false && PlayerPrefs.GetInt("isMute") != 1)
+            {
+                isSoundOn = true;
+                audioSource.Play();
+            }
+            
+        }
+
+
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began && isCoroutine && !PauseMenuScript.GameIsPaused)
+        {
+            touchCounter++;            
+            
+            StartCoroutine(Spin());
+
+
+           
+
+
+            if (!isBig)
+            {
+                transform.localScale = transform.localScale + new Vector3(0.9f, 0.9f, 0f);
+                isBig = true;
+            }
+            else
+            {
+                transform.localScale = transform.localScale - new Vector3(0.9f, 0.9f, 0f);
+                isBig = false;
+            }
+
+              
+
+            
+        }
+
+
+        /* if (Input.touchCount > 0 && !isCoroutine)
+        {
+            Instantiate(ProjectilePrefab, LaunchOffset.position, transform.rotation);
+
+        }*/
+
+
+
+        if (Input.touchCount > 0 && !isCoroutine && !PauseMenuScript.GameIsPaused)
+        {
+            if (skinTag == "default")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefab, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = touchPos * bulletSpeed;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+
+                }
+            }
+
+            if (skinTag == "whitering")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefabB, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = touchPos * bulletSpeed;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+                }
+            }
+
+            if (skinTag == "bluering")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefabC, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = touchPos * bulletSpeed;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+                }
+            }
+
+            if (skinTag == "blueorb")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefabD, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = (touchPos * bulletSpeed) * 2;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+                }
+            }
+
+            if (skinTag == "redorb")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefabE, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = touchPos * bulletSpeed;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+                }
+            }
+
+            if (skinTag == "goldblock")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefabF, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = touchPos * bulletSpeed;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+                }
+            }
+
+            if (skinTag == "emeraldblock")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefabG, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = touchPos * bulletSpeed;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+                }
+            }
+
+            if (skinTag == "moon")
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+
+                    //dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+                    // dir.Normalize();
+                    // dir.z = 0;
+                    // dir = (touchPos - transform.position).normalized;
+                    GameObject bullet = Instantiate(ProjectilePrefabH, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody2D>().velocity = new Vector3 (dir.x * bulletSpeed, dir.y * bulletSpeed, 0);
+                    rigi = bullet.GetComponent<Rigidbody2D>();
+                    rigi.velocity = touchPos * bulletSpeed;
+                    Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                    projectileAudio.Play();
+                }
+            }
+
+
+
+        }
+
+
+    }
+
+    private IEnumerator Spin()
+    {
+
+        isCoroutine = true;
+        randVal = 200;
+
+        timeInterval = 0.0001f * Time.deltaTime * 2;
+
+        for (int i = 0; i < randVal; i++)
+        {
+            transform.Rotate(0, 0, (totalAngle / 2));
+
+
+            
+            if (touchCounter >= 10)
+            {
+                isCoroutine = false;
+                GameObject.Find("laser").transform.localScale = new Vector3(1.000626f, 0.9999999f, 1.000626f);
+
+                if (isBig)
+                {
+                    transform.localScale = transform.localScale - new Vector3(0.9f, 0.9f, 0f);
+                    isBig = false;
+                }
+
+                while (counter <= 30 && touchCounter >= 10)
+                {
+                    transform.Rotate(0, 0, (totalAngle / 2));
+
+                    
+
+
+                    
+
+                    yield return new WaitForSeconds(timeInterval);
+                }
+                touchCounter = 0;
+                counter = 0;
+                GameObject.Find("laser").transform.localScale = new Vector3(1.000626f, 0f, 1.000626f);
+                isCoroutine = true;
+            }
+
+
+            if (i > Mathf.RoundToInt(randVal * 0.2f))
+                timeInterval = 0.5f * Time.deltaTime;
+            if (i > Mathf.RoundToInt(randVal * 0.5f))
+                timeInterval = 1f * Time.deltaTime;
+            if (i > Mathf.RoundToInt(randVal * 0.7f))
+                timeInterval = 1.5f * Time.deltaTime;
+            if (i > Mathf.RoundToInt(randVal * 0.8f))
+                timeInterval = 2f * Time.deltaTime;
+            if (i > Mathf.RoundToInt(randVal * 0.9f))
+                timeInterval = 2.5f * Time.deltaTime;
+
+            
+
+            yield return new WaitForSeconds(timeInterval);
+
+
+
+            
+
+
+
+        }
+
+
+        if (isBig)
+        {
+            transform.localScale = transform.localScale - new Vector3(0.9f, 0.9f, 0f);
+            isBig = false;
+        }
+        isCoroutine = true;
+
+
+    }
+}
