@@ -1,0 +1,202 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ZombieScript : MonoBehaviour
+{
+
+    
+    public float value;
+    public Text getValue;
+    public float money;
+    public float stage;
+    public string backgroundTag;
+    public string skinTag;
+    public float skinTagMod;
+
+    public float valueG;
+    public Text getValueG;
+    public float moneyG;
+    public AudioSource zombieAudio;
+    public AudioSource coinsAudio;
+
+    void Start()
+    {
+        getValue = GameObject.Find("MoneyValue").GetComponent<Text>();
+        getValueG = GameObject.Find("GoldValue").GetComponent<Text>();
+        zombieAudio = GameObject.Find("ZombieAudio").GetComponent<AudioSource>();
+        coinsAudio = GameObject.Find("CoinsAudio").GetComponent<AudioSource>();
+    }
+
+    void Update()
+    {
+        backgroundTag = GameObject.Find("CanvasMenu").GetComponent<PauseMenuScript>().backgroundTag;
+        stage = GameObject.Find("Wheelplay").GetComponent<HealthScript>().stage;
+        skinTag = GameObject.Find("Wheelplay").GetComponent<Spinner>().skinTag;
+
+        if (skinTag == "emeraldblock")
+        {
+            skinTagMod = 2f;
+        }
+        else
+        {
+            skinTagMod = 1f;
+        }
+
+        if (stage == 100)
+        {
+            value = 1f;
+        }
+        if ( stage == 50)
+        {
+            value = 2f;
+        }
+        if (stage == 33)
+        {
+            value = 3f;
+        }
+        if (stage == 25)
+        {
+            value = 4f;
+        }
+        if (stage == 20)
+        {
+            value = 5f;
+        }
+        if (stage == 16)
+        {
+            value = 6f;
+        }
+        if (stage == 14)
+        {
+            value = 7f;
+        }
+        if (stage == 12)
+        {
+            value = 8f;
+        }
+        if (stage == 11)
+        {
+            value = 9f;
+        }
+        if (stage == 10)
+        {
+            value = 10f;
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player") 
+        { 
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "Projectile" && backgroundTag == "aviary")
+        {
+            if (skinTag != "goldblock")
+            {
+                zombieAudio.Play();
+            }
+            
+            if (skinTag == "goldblock")
+            {
+                coinsAudio.Play();
+                moneyG = float.Parse(getValueG.text);
+                moneyG += (value / 10);
+                getValueG.text = moneyG.ToString("F2");
+            }
+
+            money = float.Parse(getValue.text);
+            money += value * skinTagMod;
+            getValue.text = money.ToString("F0");
+            Destroy(gameObject);
+
+            
+
+        }
+        if (collision.gameObject.tag == "Projectile" && backgroundTag == "reptilarium")
+        {
+            if (skinTag != "goldblock")
+            {
+                zombieAudio.Play();
+            }
+            if (skinTag == "goldblock")
+            {
+                coinsAudio.Play();
+                moneyG = float.Parse(getValueG.text);
+                moneyG += (value / 10) * 2;
+                getValueG.text = moneyG.ToString("F2");
+            }
+
+            money = float.Parse(getValue.text);
+            money += (value * 2) * skinTagMod;
+            getValue.text = money.ToString("F0");
+            Destroy(gameObject);
+
+        }
+        if (collision.gameObject.tag == "Projectile" && backgroundTag == "pigs")
+        {
+            if (skinTag != "goldblock")
+            {
+                zombieAudio.Play();
+            }
+            if (skinTag == "goldblock")
+            {
+                coinsAudio.Play();
+                moneyG = float.Parse(getValueG.text);
+                moneyG += (value / 10) * 3;
+                getValueG.text = moneyG.ToString("F2");
+            }
+
+            money = float.Parse(getValue.text);
+            money += (value * 4) * skinTagMod;
+            getValue.text = money.ToString("F0");
+            Destroy(gameObject);
+
+        }
+        if (collision.gameObject.tag == "Projectile" && backgroundTag == "giraffes")
+        {
+            if (skinTag != "goldblock")
+            {
+                zombieAudio.Play();
+            }
+            if (skinTag == "goldblock")
+            {
+                coinsAudio.Play();
+                moneyG = float.Parse(getValueG.text);
+                moneyG += (value / 10) * 4;
+                getValueG.text = moneyG.ToString("F2");
+            }
+
+            money = float.Parse(getValue.text);
+            money += (value * 8) * skinTagMod;
+            getValue.text = money.ToString("F0");
+            Destroy(gameObject);
+
+        }
+        if (collision.gameObject.tag == "Projectile" && backgroundTag == "pandas")
+        {
+            if (skinTag != "goldblock")
+            {
+                zombieAudio.Play();
+            }
+            if (skinTag == "goldblock")
+            {
+                coinsAudio.Play();
+                moneyG = float.Parse(getValueG.text);
+                moneyG += (value / 10) * 5;
+                getValueG.text = moneyG.ToString("F2");
+            }
+
+            money = float.Parse(getValue.text);
+            money += (value * 16) * skinTagMod;
+            getValue.text = money.ToString("F0");
+            Destroy(gameObject);
+
+        }
+
+    }
+
+}
