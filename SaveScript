@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SaveScript : MonoBehaviour
+{
+    public Text getValue;
+    public float value;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        value = PlayerPrefs.GetFloat("gold");
+        getValue.text = value.ToString("F2");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        value = float.Parse(getValue.text);
+        PlayerPrefs.SetFloat("gold", value);
+
+        
+    }
+}
