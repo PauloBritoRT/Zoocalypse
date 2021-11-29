@@ -1,0 +1,225 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyProjection : MonoBehaviour
+{
+
+    public GameObject ZombiePrefab;
+    public GameObject ZombieSnakePrefab;
+    public GameObject ZombiePigPrefab;
+    public GameObject ZombieGiraffePrefab;
+    public GameObject ZombiePandaPrefab;
+    public GameObject BirdPrefab;
+    public GameObject SnakePrefab;
+    public GameObject PigPrefab;
+    public GameObject GiraffePrefab;
+    public GameObject PandaPrefab;
+    public Transform LaunchOffset;
+    public float bulletSpeed = 10;
+    private float nextActionTime = 0.0f;
+    public float period = 1;
+    public float touchCounter = 0;
+    public string backgroundTag;
+
+    public Vector3 pos;
+    private Rigidbody2D rigi;
+
+   
+
+    // Update is called once per frame
+    void Update()
+    {
+        backgroundTag = GameObject.Find("CanvasMenu").GetComponent<PauseMenuScript>().backgroundTag;
+
+        touchCounter = GameObject.Find("Wheelplay").GetComponent<Spinner>().touchCounter;
+        
+        
+        if (backgroundTag == "aviary")
+        {
+            if (touchCounter >= 10)
+            {
+                period = Random.Range(1, 10);
+
+
+                if (period == 2)
+                {
+
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(BirdPrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * bulletSpeed;
+
+                    }
+                }
+                else
+                {
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(ZombiePrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * bulletSpeed;
+
+                    }
+                }
+
+            }
+        }
+
+        if (backgroundTag == "reptilarium")
+        {
+            if (touchCounter >= 10)
+            {
+                period = Random.Range(1, 10);
+
+
+                if (period == 2)
+                {
+
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(SnakePrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 1.5f;
+
+                    }
+                }
+                else
+                {
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(ZombieSnakePrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 1.5f;
+
+                    }
+                }
+
+            }
+        }
+
+        if (backgroundTag == "pigs")
+        {
+            if (touchCounter >= 10)
+            {
+                period = Random.Range(1, 10);
+
+
+                if (period == 2)
+                {
+
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(PigPrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 1.7f;
+
+                    }
+                }
+                else
+                {
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(ZombiePigPrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 1.7f;
+
+                    }
+                }
+
+            }
+        }
+
+        if (backgroundTag == "giraffes")
+        {
+            if (touchCounter >= 10)
+            {
+                period = Random.Range(1, 10);
+
+
+                if (period == 2)
+                {
+
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(GiraffePrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 2f;
+
+                    }
+                }
+                else
+                {
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(ZombieGiraffePrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 2f;
+
+                    }
+                }
+
+            }
+        }
+
+
+        if (backgroundTag == "pandas")
+        {
+            if (touchCounter >= 10)
+            {
+                period = Random.Range(1, 10);
+
+
+                if (period == 2)
+                {
+
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(PandaPrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 3f;
+
+                    }
+                }
+                else
+                {
+                    if (Time.time > nextActionTime)
+                    {
+                        nextActionTime = Time.time + period;
+
+                        GameObject zombieShoot = Instantiate(ZombiePandaPrefab, transform.position, Quaternion.identity) as GameObject;
+                        rigi = zombieShoot.GetComponent<Rigidbody2D>();
+                        rigi.velocity = pos * 3f;
+
+                    }
+                }
+
+            }
+        }
+
+
+
+
+
+
+    }
+}
