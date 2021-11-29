@@ -1,0 +1,504 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
+public class HealthScript : MonoBehaviour
+{
+
+    
+
+    public Image hundred, fifty, threethree, twofive, twenty, sixteen, fourteen, twelve, eleven, ten;
+    public int stage = 100;
+    public Text healthValue;
+    public Text medalValue;
+    public int medalCount = 0;
+    public string skinTag;
+    
+    public bool isRedorbKill = false;
+    public Text getValue;
+    public float money;
+
+    public Text getScore;
+    public float score;
+
+    public Text getHighScore;
+    public Text getNewHighScore;
+    public GameObject objHigh, objNewHigh, objScore;
+    public float highScore, newHighScore, goldSum;
+    public Text goldAward, setScore;
+    public string tempHigh;
+
+    public GameObject deathMenuUI;
+
+    public AudioSource audioSource;
+    public AudioSource deathAudio;
+    public AudioSource lifeLostAudio;
+    public AudioSource lifeGainedAudio;
+    public AudioSource coinsAudio;
+
+    void Start()
+    {
+        
+        getValue = GameObject.Find("GoldValue").GetComponent<Text>();
+        getScore = GameObject.Find("MoneyValue").GetComponent<Text>();
+
+    }
+
+    void Update()
+    {
+
+        medalCount = int.Parse(medalValue.text);
+        if (medalCount == 10)
+        {
+            medalCount = 0;
+            medalValue.text = medalCount.ToString();
+            score = float.Parse(getScore.text);
+            
+            money = float.Parse(getValue.text);
+            money += (score / 100);
+            getValue.text = money.ToString("F2");
+            coinsAudio.Play();
+
+        }
+        
+
+
+        if (isRedorbKill == true)
+        {
+
+            if (stage == 100)
+            {
+
+                hundred.fillAmount = 0.50f;
+                fifty.fillAmount = 1f;
+                stage = 50;
+                healthValue.text = "2";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 50)
+            {
+                hundred.fillAmount = 0.3333333333333333f;
+                fifty.fillAmount = 0.6666666666666667f;
+                threethree.fillAmount = 1f;
+                stage = 33;
+                healthValue.text = "3";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 33)
+            {
+                hundred.fillAmount = 0.25f;
+                fifty.fillAmount = 0.50f;
+                threethree.fillAmount = 0.75f;
+                twofive.fillAmount = 1f;
+                stage = 25;
+                healthValue.text = "4";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+
+            }
+            else if (stage == 25)
+            {
+                hundred.fillAmount = 0.2f;
+                fifty.fillAmount = 0.4f;
+                threethree.fillAmount = 0.6f;
+                twofive.fillAmount = 0.8f;
+                twenty.fillAmount = 1f;
+                stage = 20;
+                healthValue.text = "5";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 20)
+            {
+                hundred.fillAmount = 0.1666666666666667f;
+                fifty.fillAmount = 0.3333333333333334f;
+                threethree.fillAmount = 0.5000000000000001f;
+                twofive.fillAmount = 0.6666666666666668f;
+                twenty.fillAmount = 0.8333333333333335f;
+                sixteen.fillAmount = 1f;
+                stage = 16;
+                healthValue.text = "6";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 16)
+            {
+                hundred.fillAmount = 0.1428571428571429f;
+                fifty.fillAmount = 0.2857142857142858f;
+                threethree.fillAmount = 0.4285714285714287f;
+                twofive.fillAmount = 0.5714285714285716f;
+                twenty.fillAmount = 0.7142857142857145f;
+                sixteen.fillAmount = 0.8571428571428574f;
+                fourteen.fillAmount = 1f;
+                stage = 14;
+                healthValue.text = "7";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 14)
+            {
+                hundred.fillAmount = 0.125f;
+                fifty.fillAmount = 0.25f;
+                threethree.fillAmount = 0.375f;
+                twofive.fillAmount = 0.5f;
+                twenty.fillAmount = 0.625f;
+                sixteen.fillAmount = 0.75f;
+                fourteen.fillAmount = 0.875f;
+                twelve.fillAmount = 1f;
+                stage = 12;
+                healthValue.text = "8";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 12)
+            {
+                hundred.fillAmount = 0.1111111111111111f;
+                fifty.fillAmount = 0.2222222222222222f;
+                threethree.fillAmount = 0.3333333333333333f;
+                twofive.fillAmount = 0.4444444444444444f;
+                twenty.fillAmount = 0.5555555555555555f;
+                sixteen.fillAmount = 0.6666666666666666f;
+                fourteen.fillAmount = 0.7777777777777777f;
+                twelve.fillAmount = 0.8888888888888888f;
+                eleven.fillAmount = 1f;
+                stage = 11;
+                healthValue.text = "9";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 11)
+            {
+                hundred.fillAmount = 0.1f;
+                fifty.fillAmount = 0.2f;
+                threethree.fillAmount = 0.3f;
+                twofive.fillAmount = 0.4f;
+                twenty.fillAmount = 0.5f;
+                sixteen.fillAmount = 0.6f;
+                fourteen.fillAmount = 0.7f;
+                twelve.fillAmount = 0.8f;
+                eleven.fillAmount = 0.9f;
+                ten.fillAmount = 1f;
+                stage = 10;
+                healthValue.text = "10";
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+
+            }
+            else if (stage == 10)
+            {
+                medalCount = int.Parse(medalValue.text);
+                medalCount++;
+                medalValue.text = medalCount.ToString();
+                isRedorbKill = false;
+                lifeGainedAudio.Play();
+
+            }
+
+        }
+    }
+
+
+    
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        skinTag = GameObject.Find("CanvasMenu").GetComponent<PauseMenuScript>().skinTag;
+
+        if (collision.gameObject.tag == "Bird")
+        {
+            
+            if (stage == 100)
+            {
+
+                hundred.fillAmount = 0.50f;
+                fifty.fillAmount = 1f;
+                stage = 50;
+                healthValue.text = "2";
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 50)
+            {
+                hundred.fillAmount = 0.3333333333333333f;
+                fifty.fillAmount = 0.6666666666666667f;
+                threethree.fillAmount = 1f;
+                stage = 33;
+                healthValue.text = "3";
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 33)
+            {
+                hundred.fillAmount = 0.25f;
+                fifty.fillAmount = 0.50f;
+                threethree.fillAmount = 0.75f;
+                twofive.fillAmount = 1f;
+                stage = 25;
+                healthValue.text = "4";
+                lifeGainedAudio.Play();
+
+            }
+            else if (stage == 25)
+            {
+                hundred.fillAmount = 0.2f;
+                fifty.fillAmount = 0.4f;
+                threethree.fillAmount = 0.6f;
+                twofive.fillAmount = 0.8f;
+                twenty.fillAmount = 1f;
+                stage = 20;
+                healthValue.text = "5";
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 20)
+            {
+                hundred.fillAmount = 0.1666666666666667f;
+                fifty.fillAmount = 0.3333333333333334f;
+                threethree.fillAmount = 0.5000000000000001f;
+                twofive.fillAmount = 0.6666666666666668f;
+                twenty.fillAmount = 0.8333333333333335f;
+                sixteen.fillAmount = 1f;
+                stage = 16;
+                healthValue.text = "6";
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 16)
+            {
+                hundred.fillAmount = 0.1428571428571429f;
+                fifty.fillAmount = 0.2857142857142858f;
+                threethree.fillAmount = 0.4285714285714287f;
+                twofive.fillAmount = 0.5714285714285716f;
+                twenty.fillAmount = 0.7142857142857145f;
+                sixteen.fillAmount = 0.8571428571428574f;
+                fourteen.fillAmount = 1f;
+                stage = 14;
+                healthValue.text = "7";
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 14)
+            {
+                hundred.fillAmount = 0.125f;
+                fifty.fillAmount = 0.25f;
+                threethree.fillAmount = 0.375f;
+                twofive.fillAmount = 0.5f;
+                twenty.fillAmount = 0.625f;
+                sixteen.fillAmount = 0.75f;
+                fourteen.fillAmount = 0.875f;
+                twelve.fillAmount = 1f;
+                stage = 12;
+                healthValue.text = "8";
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 12)
+            {
+                hundred.fillAmount = 0.1111111111111111f;
+                fifty.fillAmount = 0.2222222222222222f;
+                threethree.fillAmount = 0.3333333333333333f;
+                twofive.fillAmount = 0.4444444444444444f;
+                twenty.fillAmount = 0.5555555555555555f;
+                sixteen.fillAmount = 0.6666666666666666f;
+                fourteen.fillAmount = 0.7777777777777777f;
+                twelve.fillAmount = 0.8888888888888888f;
+                eleven.fillAmount = 1f;
+                stage = 11;
+                healthValue.text = "9";
+                lifeGainedAudio.Play();
+            }
+            else if (stage == 11)
+            {
+                hundred.fillAmount = 0.1f;
+                fifty.fillAmount = 0.2f;
+                threethree.fillAmount = 0.3f;
+                twofive.fillAmount = 0.4f;
+                twenty.fillAmount = 0.5f;
+                sixteen.fillAmount = 0.6f;
+                fourteen.fillAmount = 0.7f;
+                twelve.fillAmount = 0.8f;
+                eleven.fillAmount = 0.9f;
+                ten.fillAmount = 1f;
+                stage = 10;
+                healthValue.text = "10";
+                lifeGainedAudio.Play();
+
+            }
+            else if (stage == 10)
+            {
+                medalCount = int.Parse(medalValue.text);
+                medalCount++;
+                medalValue.text = medalCount.ToString();
+                lifeGainedAudio.Play();
+
+
+            }
+
+        }
+
+       
+
+
+
+
+
+        if (collision.gameObject.tag == "Zombie")
+        {
+
+            
+            if (stage == 100)
+            {
+
+                audioSource.Stop();
+                deathAudio.Play();
+                highScore = PlayerPrefs.GetFloat("highscore");
+                
+                deathMenuUI.SetActive(true);
+                Time.timeScale = 0f;
+                score = float.Parse(getScore.text);
+                money = float.Parse(getValue.text);
+                money += (score / 100);
+                getValue.text = money.ToString("F2");
+                goldSum = score / 100;
+                PlayerPrefs.SetFloat("gold", money);
+                if (score > highScore)
+                {
+                    PlayerPrefs.SetFloat("highscore", score);
+                    objScore.SetActive(false);
+                    objHigh.SetActive(false);
+                    objNewHigh.SetActive(true);
+
+                    getNewHighScore.text = score.ToString("f0");
+                }
+                else
+                {
+                    getHighScore.text = highScore.ToString("F0");
+                    setScore.text = score.ToString("F0");
+
+                    objNewHigh.SetActive(false);
+                    objHigh.SetActive(true);
+                    objScore.SetActive(true);
+                }
+                goldAward.text = goldSum.ToString("F2");
+
+                PlayerPrefs.Save();
+
+
+                
+
+                //SceneManager.LoadScene("Game");
+            }
+            if (stage == 50)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 1f;
+                stage = 100;
+                healthValue.text = "1";
+            }
+            if (stage == 33)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.50f;
+                fifty.fillAmount = 1f;
+                stage = 50;
+                healthValue.text = "2";
+            }
+            if (stage == 25)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.3333333333333333f;
+                fifty.fillAmount = 0.6666666666666667f;
+                threethree.fillAmount = 1f;
+                stage = 33;
+                healthValue.text = "3";
+            }
+            if (stage == 20)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.25f;
+                fifty.fillAmount = 0.50f;
+                threethree.fillAmount = 0.75f;
+                twofive.fillAmount = 1f;
+                stage = 25;
+                healthValue.text = "4";
+            }
+            if (stage == 16)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.2f;
+                fifty.fillAmount = 0.4f;
+                threethree.fillAmount = 0.6f;
+                twofive.fillAmount = 0.8f;
+                twenty.fillAmount = 1f;
+                stage = 20;
+                healthValue.text = "5";
+            }
+            if (stage == 14)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.1666666666666667f;
+                fifty.fillAmount = 0.3333333333333334f;
+                threethree.fillAmount = 0.5000000000000001f;
+                twofive.fillAmount = 0.6666666666666668f;
+                twenty.fillAmount = 0.8333333333333335f;
+                sixteen.fillAmount = 1f;
+                stage = 16;
+                healthValue.text = "6";
+            }
+            if (stage == 12)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.1428571428571429f;
+                fifty.fillAmount = 0.2857142857142858f;
+                threethree.fillAmount = 0.4285714285714287f;
+                twofive.fillAmount = 0.5714285714285716f;
+                twenty.fillAmount = 0.7142857142857145f;
+                sixteen.fillAmount = 0.8571428571428574f;
+                fourteen.fillAmount = 1f;
+                stage = 14;
+                healthValue.text = "7";
+            }
+            if (stage == 11)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.125f;
+                fifty.fillAmount = 0.25f;
+                threethree.fillAmount = 0.375f;
+                twofive.fillAmount = 0.5f;
+                twenty.fillAmount = 0.625f;
+                sixteen.fillAmount = 0.75f;
+                fourteen.fillAmount = 0.875f;
+                twelve.fillAmount = 1f;
+                stage = 12;
+                healthValue.text = "8";
+            }
+            if (stage == 10)
+            {
+                lifeLostAudio.Play();
+                hundred.fillAmount = 0.1111111111111111f;
+                fifty.fillAmount = 0.2222222222222222f;
+                threethree.fillAmount = 0.3333333333333333f;
+                twofive.fillAmount = 0.4444444444444444f;
+                twenty.fillAmount = 0.5555555555555555f;
+                sixteen.fillAmount = 0.6666666666666666f;
+                fourteen.fillAmount = 0.7777777777777777f;
+                twelve.fillAmount = 0.8888888888888888f;
+                eleven.fillAmount = 1f;
+                stage = 11;
+                healthValue.text = "9";
+
+                medalCount = int.Parse(medalValue.text);
+
+                
+                
+
+            }
+            
+
+
+        }
+
+    }
+
+
+}
