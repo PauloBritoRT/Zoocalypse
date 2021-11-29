@@ -1,0 +1,1629 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
+
+public class PauseMenuScript : MonoBehaviour
+{
+
+
+  
+
+
+
+    
+    public static bool GameIsPaused = false;
+
+    public GameObject pauseMenuUI;
+
+    public GameObject skinMenuUI;
+    public GameObject zooMenuUI;
+    public GameObject mapMenuUI;
+    public GameObject storeMenuUI;
+
+    public GameObject defaultSkin;
+    public GameObject whiteRingSkin;
+    public GameObject blueRingSkin;
+    public GameObject blueOrbSkin;
+    public GameObject redOrbSkin;
+    public GameObject goldBlockSkin;
+    public GameObject emeraldBlockSkin;
+    public GameObject moonSkin;
+
+    public GameObject defaultSkinB;
+    public GameObject whiteRingSkinB;
+    public GameObject blueRingSkinB;
+    public GameObject blueOrbSkinB;
+    public GameObject redOrbSkinB;
+    public GameObject goldBlockSkinB;
+    public GameObject emeraldBlockSkinB;
+    public GameObject moonSkinB;
+
+    public GameObject checkMarkA;
+    public GameObject checkMarkB;
+    public GameObject checkMarkC;
+    public GameObject checkMarkD;
+    public GameObject checkMarkE;
+    public GameObject checkMarkF;
+    public GameObject checkMarkG;
+    public GameObject checkMarkH;
+
+    public GameObject targetA, targetB, targetC, targetD, targetE, targetF, targetG, targetH;
+    public GameObject mapMarkA, mapMarkB, mapMarkC, mapMarkD, mapMarkE;
+    public GameObject bgBird, bgSnake, bgPig, bgGiraffe, bgPanda;
+
+    public bool isOwnedA = true;
+    public bool isOwnedB = false;
+    public bool isOwnedC = false;
+    public bool isOwnedD = false;
+    public bool isOwnedE = false;
+    public bool isOwnedF = false;
+    public bool isOwnedG = false;
+    public bool isOwnedH = false;
+
+    public GameObject descB, descC, descD, descE, descF, descG, descH;
+
+    public GameObject popupA, popupB, popupC, popupD, popupE;
+    public GameObject audioOn, audioOff;
+    
+
+
+    public string skinTag;
+    public string backgroundTag;
+
+    public Text getValue;
+    public float money;
+
+    public AudioSource audioSource;
+    public AudioSource buttonAudio;
+    public AudioSource pauseAudio;
+    public AudioSource resumeAudio;
+    public AudioSource errorAudio;
+    public AudioSource costAudio;
+    public GameObject removeAdsButton;
+    public GameObject removeAdsButtonDummy;
+
+
+    void Start()
+    {
+
+        if (PlayerPrefs.GetInt("XXXX") == 1)
+        {
+            removeAdsButton.SetActive(false);
+            removeAdsButtonDummy.SetActive(true);
+        }
+
+
+        Advertisement.Initialize("XXXXXXX");
+        skinTag = PlayerPrefs.GetString("skintag");
+        backgroundTag = PlayerPrefs.GetString("backgroundtag");
+        getValue = GameObject.Find("GoldValue").GetComponent<Text>();
+
+
+        if (PlayerPrefs.GetInt("isMute") == 1)
+        {
+            audioOn.SetActive(false);
+            audioOff.SetActive(true);
+        }
+        else
+        {
+            audioOn.SetActive(true);
+            audioOff.SetActive(false);
+        }
+
+
+        if (PlayerPrefs.GetInt("isOwnedB") == 1)
+        {
+            isOwnedB = true;
+        }
+        else
+        {
+            isOwnedB = false;
+        }
+
+
+        if (PlayerPrefs.GetInt("isOwnedC") == 1)
+        {
+            isOwnedC = true;
+        }
+        else
+        {
+            isOwnedC = false;
+        }
+
+        if (PlayerPrefs.GetInt("isOwnedD") == 1)
+        {
+            isOwnedD = true;
+        }
+        else
+        {
+            isOwnedD = false;
+        }
+
+        if (PlayerPrefs.GetInt("isOwnedE") == 1)
+        {
+            isOwnedE = true;
+        }
+        else
+        {
+            isOwnedE = false;
+        }
+
+
+        if (PlayerPrefs.GetInt("isOwnedF") == 1)
+        {
+            isOwnedF = true;
+        }
+        else
+        {
+            isOwnedF = false;
+        }
+
+        if (PlayerPrefs.GetInt("isOwnedG") == 1)
+        {
+            isOwnedG = true;
+        }
+        else
+        {
+            isOwnedG = false;
+        }
+
+        if (PlayerPrefs.GetInt("isOwnedH") == 1)
+        {
+            isOwnedH = true;
+        }
+        else
+        {
+            isOwnedH = false;
+        }
+
+        if (backgroundTag == "reptilarium")
+        {
+
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(true);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(true);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(false);
+
+        }
+        else if (backgroundTag == "pigs")
+        {
+
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(true);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(true);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(false);
+
+        }
+        else if (backgroundTag == "giraffes")
+        {
+
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(true);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(true);
+            mapMarkE.SetActive(false);
+
+        }
+        else if (backgroundTag == "pandas")
+        {
+
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(true);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(true);
+
+        }
+        else
+        {
+
+
+            bgBird.SetActive(true);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(true);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(false);
+            backgroundTag = "aviary";
+
+        }
+
+
+
+
+
+
+
+        if (skinTag == "whitering")
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(true);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(true);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(true);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            
+
+        }
+        else if (skinTag == "bluering")
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(true);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(true);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(true);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+
+
+        }
+        else if (skinTag == "blueorb")
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(true);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(true);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(true);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+
+
+        }
+        else if (skinTag == "redorb")
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(true);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(true);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(true);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+
+
+        }
+        else if (skinTag == "emeraldblock")
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(true);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(true);
+            moonSkinB.SetActive(false);
+
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(true);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+
+
+        }
+        else if (skinTag == "moon")
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(true);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(true);
+
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(true);
+            checkMarkH.SetActive(false);
+
+
+        }
+        else if (skinTag == "goldblock")
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(true);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(true);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(true);
+
+
+        }
+        else
+        {
+            defaultSkin.SetActive(true);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(true);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+
+
+            checkMarkA.SetActive(true);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            skinTag = "default";
+
+        }
+
+
+    }
+    public void ShowInterstitialAd()
+    {
+        if (PlayerPrefs.GetInt("XXXXX") != 1)
+        {
+
+            if (Advertisement.IsReady("video"))
+            {
+                Advertisement.Show("video");
+            }
+            else
+            {
+                Debug.Log("Ads not ready");
+            }
+        }
+    }
+
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void MuteOn()
+    {
+        audioOn.SetActive(false);
+        audioOff.SetActive(true);
+        audioSource.Stop();
+        PlayerPrefs.SetInt("isMute", 1);
+        buttonAudio.Play();
+    }
+    public void MuteOff()
+    {
+        audioOn.SetActive(true);
+        audioOff.SetActive(false);
+        
+        PlayerPrefs.SetInt("isMute", 0);
+        buttonAudio.Play();
+    }
+
+    public void OnRemoveAdsPurchaseCompleted()
+    {
+        PlayerPrefs.SetInt("XXXXX", 1);
+        removeAdsButton.SetActive(false);
+        removeAdsButtonDummy.SetActive(true);
+    }
+
+    public void Resume()
+    {
+        if (skinTag == "moon")
+        {
+            pauseMenuUI.SetActive(false);
+            Time.timeScale = 0.4f;
+            GameIsPaused = false;
+        }
+        else
+        {
+            pauseMenuUI.SetActive(false);
+            Time.timeScale = 1f;
+            GameIsPaused = false;
+        }
+        resumeAudio.Play();
+        if (PlayerPrefs.GetInt("isMute") != 1)
+        {
+            audioSource.Play();
+        }
+
+
+    }
+
+    public void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+        pauseAudio.Play();
+        audioSource.Stop();
+    }
+
+    public void Retry()
+    {
+
+        buttonAudio.Play();
+        ShowInterstitialAd();
+        if (skinTag == "moon")
+        {
+            Time.timeScale = 0.4f;
+            SceneManager.LoadScene("Game");
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Game");
+        }
+
+    }
+
+    public void OpenSkinMenu()
+    {
+        buttonAudio.Play();
+        pauseMenuUI.SetActive(false);
+        skinMenuUI.SetActive(true);
+
+        if (isOwnedB == true)
+        {
+            targetB.SetActive(true);
+            
+            descB.SetActive(false);
+        }
+
+        if (isOwnedC == true)
+        {
+            targetC.SetActive(true);
+            
+            descC.SetActive(false);
+        }
+
+
+        if (isOwnedD == true)
+        {
+            targetD.SetActive(true);
+            
+            descD.SetActive(false);
+        }
+
+        if (isOwnedE == true)
+        {
+            targetE.SetActive(true);
+            
+            descE.SetActive(false);
+        }
+
+        if (isOwnedF == true)
+        {
+            targetF.SetActive(true);
+            
+            descF.SetActive(false);
+        }
+
+        if (isOwnedG == true)
+        {
+            targetG.SetActive(true);
+            
+            descG.SetActive(false);
+        }
+
+        if (isOwnedH == true)
+        {
+            targetH.SetActive(true);
+            
+            descH.SetActive(false);
+        }
+    }
+
+   
+
+    public void OpenMapMenu()
+    {
+        pauseMenuUI.SetActive(false);
+        mapMenuUI.SetActive(true);
+        buttonAudio.Play();
+    }
+
+    
+
+    public void LeaveSkinMenu()
+    {
+        skinMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+        buttonAudio.Play();
+
+    }
+
+    public void LeaveMapMenu()
+    {
+        mapMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+        buttonAudio.Play();
+
+    }
+
+
+
+
+
+    public void OpenStoreMenu()
+    {
+        pauseMenuUI.SetActive(false);
+        storeMenuUI.SetActive(true);
+        buttonAudio.Play();
+    }
+
+
+
+    public void LeaveStoreMenu()
+    {
+        storeMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+        buttonAudio.Play();
+
+    }
+
+
+
+
+
+
+    public void OpenPopupA()
+    {
+        buttonAudio.Play();
+        if (backgroundTag != "aviary")
+        {
+            popupA.SetActive(true);
+            mapMenuUI.SetActive(false);
+        }
+    }
+    public void LeavePopupA()
+    {
+        buttonAudio.Play();
+        popupA.SetActive(false);
+            mapMenuUI.SetActive(true);
+   
+
+    }
+    public void OpenPopupB()
+    {
+        buttonAudio.Play();
+        if (backgroundTag != "reptilarium")
+        {
+         popupB.SetActive(true);
+         mapMenuUI.SetActive(false);
+        }
+
+    }
+    public void LeavePopupB()
+    {
+        buttonAudio.Play();
+        popupB.SetActive(false);
+        mapMenuUI.SetActive(true);
+        
+
+    }
+    public void OpenPopupC()
+    {
+        buttonAudio.Play();
+        if (backgroundTag != "pigs")
+        {
+         popupC.SetActive(true);
+         mapMenuUI.SetActive(false);
+        }
+
+    }
+    public void LeavePopupC()
+    {
+        buttonAudio.Play();
+        popupC.SetActive(false);
+        mapMenuUI.SetActive(true);
+       
+
+    }
+    public void OpenPopupD()
+    {
+        buttonAudio.Play();
+        if (backgroundTag != "giraffes")
+        {
+         popupD.SetActive(true);
+         mapMenuUI.SetActive(false);
+        }
+
+    }
+    public void LeavePopupD()
+    {
+        buttonAudio.Play();
+        popupD.SetActive(false);
+        mapMenuUI.SetActive(true);
+        
+
+    }
+    public void OpenPopupE()
+    {
+        buttonAudio.Play();
+        if (backgroundTag != "pandas")
+       {
+        popupE.SetActive(true);
+        mapMenuUI.SetActive(false);
+       }
+
+    }
+    public void LeavePopupE()
+    {
+        buttonAudio.Play();
+        popupE.SetActive(false);
+        mapMenuUI.SetActive(true);
+
+    }
+    
+    public void ChangeMapAviary()
+    {
+        money = float.Parse(getValue.text);
+        if (money >= 1)
+        {
+            money -= 1;
+            getValue.text = money.ToString("F2");
+            backgroundTag = "aviary";
+
+            bgBird.SetActive(true);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(true);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(false);
+            PlayerPrefs.SetString("backgroundtag", backgroundTag);
+            LeavePopupA();
+            costAudio.Play();
+            ShowInterstitialAd();
+
+
+
+        }
+        else
+        {
+            errorAudio.Play();
+        }
+    }
+    public void ChangeMapReptilarium()
+    {
+        money = float.Parse(getValue.text);
+        if (money >= 5)
+        {
+            money -= 5;
+            getValue.text = money.ToString("F2");
+            backgroundTag = "reptilarium";
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(true);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(true);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(false);
+            PlayerPrefs.SetString("backgroundtag", backgroundTag);
+            LeavePopupB();
+            costAudio.Play();
+            ShowInterstitialAd();
+        }
+        else
+        {
+            errorAudio.Play();
+        }
+    }
+    public void ChangeMapPigs()
+    {
+        money = float.Parse(getValue.text);
+        if (money >= 10)
+        {
+            money -= 10;
+            getValue.text = money.ToString("F2");
+            backgroundTag = "pigs";
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(true);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(true);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(false);
+            PlayerPrefs.SetString("backgroundtag", backgroundTag);
+            LeavePopupC();
+            costAudio.Play();
+            ShowInterstitialAd();
+        }
+        else
+        {
+            errorAudio.Play();
+        }
+    }
+    public void ChangeMapGiraffes()
+    {
+        money = float.Parse(getValue.text);
+        if (money >= 20)
+        {
+            money -= 20;
+            getValue.text = money.ToString("F2");
+            backgroundTag = "giraffes";
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(true);
+            bgPanda.SetActive(false);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(true);
+            mapMarkE.SetActive(false);
+            PlayerPrefs.SetString("backgroundtag", backgroundTag);
+            LeavePopupD();
+            costAudio.Play();
+            ShowInterstitialAd();
+        }
+        else
+        {
+            errorAudio.Play();
+        }
+    }
+    public void ChangeMapPandas()
+    {
+        money = float.Parse(getValue.text);
+        if (money >= 50)
+        {
+            money -= 50;
+            getValue.text = money.ToString("F2");
+            backgroundTag = "pandas";
+
+            bgBird.SetActive(false);
+            bgSnake.SetActive(false);
+            bgPig.SetActive(false);
+            bgGiraffe.SetActive(false);
+            bgPanda.SetActive(true);
+
+            mapMarkA.SetActive(false);
+            mapMarkB.SetActive(false);
+            mapMarkC.SetActive(false);
+            mapMarkD.SetActive(false);
+            mapMarkE.SetActive(true);
+            PlayerPrefs.SetString("backgroundtag", backgroundTag);
+            LeavePopupE();
+            costAudio.Play();
+            ShowInterstitialAd();
+        }
+        else
+        {
+            errorAudio.Play();
+        }
+    }
+
+
+
+
+
+
+
+
+
+    public void ChangeSkinDefault() 
+    {
+        defaultSkin.SetActive(true);
+        whiteRingSkin.SetActive(false);
+        blueRingSkin.SetActive(false);
+        blueOrbSkin.SetActive(false);
+        redOrbSkin.SetActive(false);
+        goldBlockSkin.SetActive(false);
+        emeraldBlockSkin.SetActive(false);
+        moonSkin.SetActive(false);
+
+        defaultSkinB.SetActive(true);
+        whiteRingSkinB.SetActive(false);
+        blueRingSkinB.SetActive(false);
+        blueOrbSkinB.SetActive(false);
+        redOrbSkinB.SetActive(false);
+        goldBlockSkinB.SetActive(false);
+        emeraldBlockSkinB.SetActive(false);
+        moonSkinB.SetActive(false);
+        skinTag = "default";
+
+        checkMarkA.SetActive(true);
+        checkMarkB.SetActive(false);
+        checkMarkC.SetActive(false);
+        checkMarkD.SetActive(false);
+        checkMarkE.SetActive(false);
+        checkMarkF.SetActive(false);
+        checkMarkG.SetActive(false);
+        checkMarkH.SetActive(false);
+        PlayerPrefs.SetString("skintag", skinTag);
+        buttonAudio.Play();
+
+    }
+
+    public void ChangeSkinWhiteRing()
+    {
+        money = float.Parse(getValue.text);
+        if (isOwnedB == true)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(true);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(true);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "whitering";
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(true);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            PlayerPrefs.SetString("skintag", skinTag);
+            buttonAudio.Play();
+
+        }
+
+        if (isOwnedB == false && money >= 10)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(true);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(true);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "whitering";
+
+            targetB.SetActive(true);
+            descB.SetActive(false);
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(true);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            isOwnedB = true;
+            money -= 10;
+            getValue.text = money.ToString("F2");
+
+            PlayerPrefs.SetInt("isOwnedB", 1);
+            PlayerPrefs.SetString("skintag", skinTag);
+            costAudio.Play();
+
+        }
+        else if (isOwnedB == false && money < 10)
+        {
+            errorAudio.Play();
+        }
+
+
+
+
+    }
+
+    public void ChangeSkinBlueRing()
+    {
+        money = float.Parse(getValue.text);
+        if (isOwnedC == true)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(true);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(true);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "bluering";
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(true);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            PlayerPrefs.SetString("skintag", skinTag);
+            buttonAudio.Play();
+
+        }
+
+        if (isOwnedC == false && money >= 20)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(true);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(true);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "bluering";
+
+            targetC.SetActive(true);
+            descC.SetActive(false);
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(true);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            isOwnedC = true;
+            money -= 20;
+            getValue.text = money.ToString("F2");
+
+            PlayerPrefs.SetInt("isOwnedC", 1);
+            PlayerPrefs.SetString("skintag", skinTag);
+            costAudio.Play();
+        }
+        else if (isOwnedC == false && money < 20)
+        {
+            errorAudio.Play();
+        }
+
+    }
+
+    public void ChangeSkinBlueOrb()
+    {
+        money = float.Parse(getValue.text);
+
+        if (isOwnedD == true)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(true);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(true);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "blueorb";
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(true);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            PlayerPrefs.SetString("skintag", skinTag);
+            buttonAudio.Play();
+
+        }
+
+        if (isOwnedD == false && money >= 100)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(true);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(true);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "blueorb";
+
+            targetD.SetActive(true);
+            descD.SetActive(false);
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(true);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            isOwnedD = true;
+
+            money -= 100;
+            getValue.text = money.ToString("F2");
+
+            PlayerPrefs.SetInt("isOwnedD", 1);
+            PlayerPrefs.SetString("skintag", skinTag);
+            costAudio.Play();
+        }
+        else if (isOwnedD == false && money < 100)
+        {
+            errorAudio.Play();
+        }
+
+    }
+
+    public void ChangeSkinRedOrb()
+    {
+        money = float.Parse(getValue.text);
+
+        if (isOwnedE == true)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(true);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(true);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "redorb";
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(true);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            PlayerPrefs.SetString("skintag", skinTag);
+            buttonAudio.Play();
+
+        }
+
+        if (isOwnedE == false && money >= 200)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(true);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(true);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "redorb";
+
+            targetE.SetActive(true);
+            descE.SetActive(false);
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(true);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            isOwnedE = true;
+
+            money -= 200;
+            getValue.text = money.ToString("F2");
+
+            PlayerPrefs.SetInt("isOwnedE", 1);
+            PlayerPrefs.SetString("skintag", skinTag);
+            costAudio.Play();
+        }
+        else if (isOwnedE == false && money < 200)
+        {
+            errorAudio.Play();
+        }
+
+
+
+    }
+
+    public void ChangeSkinGoldBlock()
+    {
+        money = float.Parse(getValue.text);
+
+        if (isOwnedH == true)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(true);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(true);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "goldblock";
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(true);
+            PlayerPrefs.SetString("skintag", skinTag);
+            buttonAudio.Play();
+
+        }
+
+        if (isOwnedH == false && money >= 2000)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(true);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(true);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(false);
+            skinTag = "goldblock";
+
+            targetH.SetActive(true);
+            descH.SetActive(false);
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(true);
+            isOwnedH = true;
+
+            money -= 2000;
+            getValue.text = money.ToString("F2");
+
+            PlayerPrefs.SetInt("isOwnedH", 1);
+            PlayerPrefs.SetString("skintag", skinTag);
+            costAudio.Play();
+        }
+        else if (isOwnedH == false && money < 2000)
+        {
+            errorAudio.Play();
+        }
+
+    }
+
+    public void ChangeSkinEmeraldBlock()
+    {
+        money = float.Parse(getValue.text);
+
+        if (isOwnedF == true)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(true);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(true);
+            moonSkinB.SetActive(false);
+            skinTag = "emeraldblock";
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(true);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            PlayerPrefs.SetString("skintag", skinTag);
+            buttonAudio.Play();
+
+        }
+
+        if (isOwnedF == false && money >= 500)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(true);
+            moonSkin.SetActive(false);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(true);
+            moonSkinB.SetActive(false);
+            skinTag = "emeraldblock";
+
+            targetF.SetActive(true);
+            descF.SetActive(false);
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(true);
+            checkMarkG.SetActive(false);
+            checkMarkH.SetActive(false);
+            isOwnedF = true;
+
+            money -= 500;
+            getValue.text = money.ToString("F2");
+
+            PlayerPrefs.SetInt("isOwnedF", 1);
+            PlayerPrefs.SetString("skintag", skinTag);
+            costAudio.Play();
+        }
+        else if(isOwnedF == false && money < 500)
+        {
+            errorAudio.Play();
+        }
+
+
+
+    }
+
+    public void ChangeSkinMoon()
+    {
+        money = float.Parse(getValue.text);
+
+        if (isOwnedG == true)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(true);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(true);
+            skinTag = "moon";
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(true);
+            checkMarkH.SetActive(false);
+            PlayerPrefs.SetString("skintag", skinTag);
+            buttonAudio.Play();
+
+        }
+
+        if (isOwnedG == false && money >= 1000)
+        {
+            defaultSkin.SetActive(false);
+            whiteRingSkin.SetActive(false);
+            blueRingSkin.SetActive(false);
+            blueOrbSkin.SetActive(false);
+            redOrbSkin.SetActive(false);
+            goldBlockSkin.SetActive(false);
+            emeraldBlockSkin.SetActive(false);
+            moonSkin.SetActive(true);
+
+            defaultSkinB.SetActive(false);
+            whiteRingSkinB.SetActive(false);
+            blueRingSkinB.SetActive(false);
+            blueOrbSkinB.SetActive(false);
+            redOrbSkinB.SetActive(false);
+            goldBlockSkinB.SetActive(false);
+            emeraldBlockSkinB.SetActive(false);
+            moonSkinB.SetActive(true);
+            skinTag = "moon";
+
+            targetG.SetActive(true);
+            descG.SetActive(false);
+
+            checkMarkA.SetActive(false);
+            checkMarkB.SetActive(false);
+            checkMarkC.SetActive(false);
+            checkMarkD.SetActive(false);
+            checkMarkE.SetActive(false);
+            checkMarkF.SetActive(false);
+            checkMarkG.SetActive(true);
+            checkMarkH.SetActive(false);
+            isOwnedG = true;
+
+            money -= 1000;
+            getValue.text = money.ToString("F2");
+
+            PlayerPrefs.SetInt("isOwnedG", 1);
+            PlayerPrefs.SetString("skintag", skinTag);
+            costAudio.Play();
+        }
+        else if (isOwnedG == false && money < 1000)
+        {
+            errorAudio.Play();
+        }
+    }
+}
