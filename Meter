@@ -1,0 +1,116 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Meter : MonoBehaviour
+{
+    float randVal;
+    private float timeInterval;
+    private bool isCoroutine;
+
+    public AudioSource chargeAudio;
+
+
+    public float touchCounter = 0;
+    public float counter = 0;
+
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+        isCoroutine = true;
+            
+        touchCounter =  GameObject.Find("Wheelplay").GetComponent<Spinner>().touchCounter;
+        counter = GameObject.Find("Wheelplay").GetComponent<Spinner>().counter;
+
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        touchCounter = GameObject.Find("Wheelplay").GetComponent<Spinner>().touchCounter;
+        counter = GameObject.Find("Wheelplay").GetComponent<Spinner>().counter;
+
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began && counter == 0 && isCoroutine && PauseMenuScript.GameIsPaused == false)
+        {
+            
+
+
+            StartCoroutine(Drain());
+
+          
+                transform.localScale = transform.localScale + new Vector3(0f, 0.09999999f, 0f);
+
+
+            chargeAudio.Play();
+            
+
+
+        }
+    }
+
+    private IEnumerator Drain()
+    {
+
+        isCoroutine = true;
+        randVal = 200;
+
+        timeInterval = 0.0001f * Time.deltaTime * 2;
+
+        for (int i = 0; i < randVal; i++)
+        {
+            
+
+
+
+            if (touchCounter >= 10)
+            {
+                isCoroutine = false;
+                
+
+                
+                   
+                    
+                
+
+                for (int z = 0; z < touchCounter; z++)
+                {
+
+                    //transform.localScale = transform.localScale - new Vector3(0f, 0.00008f, 0f);
+                    
+
+
+
+                    yield return new WaitForSeconds(GameObject.Find("Wheelplay").GetComponent<Spinner>().timeInterval);
+                }
+                touchCounter = 0;
+                isCoroutine = true;
+            }
+
+
+            
+
+
+            yield return new WaitForSeconds(GameObject.Find("Wheelplay").GetComponent<Spinner>().timeInterval);
+
+
+
+
+
+
+
+        }
+
+
+        
+        isCoroutine = true;
+
+
+    }
+}
