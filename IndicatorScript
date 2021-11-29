@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class IndicatorScript : MonoBehaviour
+{
+    public Image hundred, fifty, threethree, twofive, twenty, sixteen, fourteen, twelve, eleven, ten;
+    
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+        
+            hundred.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().hundred.fillAmount;
+            fifty.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().fifty.fillAmount;
+            threethree.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().threethree.fillAmount;
+            twofive.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().twofive.fillAmount;
+            twenty.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().twenty.fillAmount;
+            sixteen.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().sixteen.fillAmount;
+            fourteen.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().fourteen.fillAmount;
+            twelve.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().twelve.fillAmount;
+            eleven.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().eleven.fillAmount;
+            ten.fillAmount = GameObject.Find("Wheelplay").GetComponent<HealthScript>().ten.fillAmount;
+
+    }
+}
