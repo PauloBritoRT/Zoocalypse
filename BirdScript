@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class BirdScript : MonoBehaviour
+{
+    public float value;
+    public Text getValue;
+    public float money;
+    public string skinTag;
+    public bool isRedorbKill;
+    public AudioSource birdAudio;
+
+    void Start()
+    {
+        getValue = GameObject.Find("MoneyValue").GetComponent<Text>();
+        birdAudio = GameObject.Find("BirdAudio").GetComponent<AudioSource>();
+    }
+    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        skinTag = GameObject.Find("CanvasMenu").GetComponent<PauseMenuScript>().skinTag;
+        isRedorbKill = GameObject.Find("Wheelplay").GetComponent<HealthScript>().isRedorbKill;
+
+        if (collision.gameObject.tag != "Bird" && collision.gameObject.tag != "Projectile")
+        {
+            Destroy(gameObject);
+        }
+
+        else if (collision.gameObject.tag == "Projectile" && skinTag != "redorb")
+        {
+            
+            money = float.Parse(getValue.text);
+            money -= 1f;
+            getValue.text = money.ToString("F0");
+            Destroy(gameObject);
+            birdAudio.Play();
+            
+
+        }
+        else
+        {
+            GameObject.Find("Wheelplay").GetComponent<HealthScript>().isRedorbKill = true;
+            Destroy(gameObject);
+            
+        }
+    }
+}
